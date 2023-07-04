@@ -80,19 +80,19 @@ function calcCirc() {
         readCorrent = nominalCorrent.toFixed(2)
     }
 
-    let idim = parseFloat((readCorrent * 0.37))
+    let idim = (readCorrent * 0.37) + Number(readCorrent)
 
-    console.log('>>>>>>>>>>> |   >>>>>>> : ', readCorrent, idim)
+    let A = readCorrent
 
-    let result1 = 2 * idim * (cableR * potencialFactor + cableX * Math.sin(Math.acos(potencialFactor))) * circuitLenght / 100 / cableFase / (nominalTension / 10);
+    console.log('>>>>>>>>>>> |   >>>>>>> : ', A, idim, Number(A) + Number(idim))
+
+    let result1 = 2 * parseFloat(idim) * (cableR * potencialFactor + cableX * Math.sin(Math.acos(potencialFactor))) * circuitLenght / 100 / cableFase / (nominalTension / 10);
     let result2 = Math.sqrt(3) * idim * (cableR * potencialFactor + cableX * Math.sin(Math.acos(potencialFactor))) * circuitLenght / 100 / cableFase / (nominalTension / 10);
 
-   
     console.log('>>>>>: ', circuitType, nominalTension)
     console.log('Result: ',result1.toFixed(2), result2.toFixed(2));
 
-
-    dimensionCorrent.value = idim;
+    dimensionCorrent.value = parseFloat(idim);
     dropTensionE.style.fontWeight = "bold";
     dropTensionE.style.color = "rgb(255, 255, 255)";
     
