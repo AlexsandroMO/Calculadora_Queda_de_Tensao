@@ -16,40 +16,14 @@ h6 {
     color: #444444;
 }
 
-select {
-    width: 250px;
-    padding: 10px;
-}
-
-.multiplo {
-    width: 50%;
-}
-
-.bg-steel {
-    background-color: #116ba7;
-}
-
-.site-header .navbar-nav .nav-link {
-    color: #cbd5db;
-}
-
-.site-header .navbar-nav .nav-link:hover {
-    color: #ffffff;
-}
-
-.site-header .navbar-nav .nav-link.active {
-    font-weight: 500;
-}
-
-
 /* --- */
 a {
     text-decoration: none;
 }
-/* Navbar */
 
+/* Navbar */
 .navbar  {
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #d01313;
     margin-bottom: 20px;
 }
 
@@ -62,21 +36,18 @@ a {
 }
 
 .navbar-light .navbar-nav a.nav-link {
-    color: #333;
+    color: #868080;
     letter-spacing: 1px;
+    font-weight: bold;
 }
+
 
 /* Rodapé */
 footer {
     background-color: #333;
-    height: 175px;
-    width: 100%;
-
-}
-
-footer p {
-    color: #f5f5f5;
-    text-align: center;
-    top: 45%;
-    position: relative;
+    height: 150px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

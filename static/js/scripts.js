@@ -56,32 +56,94 @@ elementSected.addEventListener("change", function () {
 
 
 function calcCirc() {
+    let circuitType = document.getElementById("circuit-type").value;
     let nominalTension = parseFloat(document.getElementById("nominalTension").value);
-    let nominalCorrent = parseFloat(document.getElementById("nominalCorrent").value);
+    let nominalCorrent = parseFloat(document.getElementById("nominalCorrent").value); //valor da corrente nominal
+    let Corrent = document.getElementById("nominalCorrent"); //campo corrente nominal
+    let powerCircuit = parseFloat(document.getElementById("powerCircuit").value); // potência lida
     let potencialFactor = parseFloat(document.getElementById("potencialFactor").value);
-    let dimensionCorrent = document.getElementById("dimensionCorrent")
+    let dimensionCorrent = document.getElementById("dimensionCorrent") // campo corrente dimensionada
     let dropTension = parseFloat(document.getElementById("dropTension").value);
     let circuitLenght = parseFloat(document.getElementById("circuitLenght").value);
     let cableR = parseFloat(document.getElementById("cableR").value);
     let cableX = parseFloat(document.getElementById("cableR").value);
     let cableFase = parseFloat(document.getElementById("cableFase").value);
     let dropTensionE = document.getElementById("dropTensionE");
+    let readCorrent = 0;
 
-    let idim = ((nominalCorrent * 37) / 100) + nominalCorrent
+    let calcPowCorrent = (powerCircuit / nominalTension) // calculo de corrente produto da potência sobre tensÃo
 
-    let result = 2 * idim * (cableR * potencialFactor + cableX * Math.sin(Math.acos(potencialFactor))) * circuitLenght / 100 / cableFase / (nominalTension / 10);
-    //let result = (2 * idim * ((((cableR * potencialFactor) + (cableX * Math.sin(Math.acos(potencialFactor))))) * circuitLenght) / 1000 / cableFase) / (nominalTension * 1000);
+    if (powerCircuit != 0){
+        readCorrent = calcPowCorrent.toFixed(2)
+        Corrent.value = readCorrent
+    }else{
+        readCorrent = nominalCorrent.toFixed(2)
+    }
 
-    console.log('Result: ', result);
+    let idim = parseFloat((readCorrent * 0.37))
+
+    console.log('>>>>>>>>>>> |   >>>>>>> : ', readCorrent, idim)
+
+    let result1 = 2 * idim * (cableR * potencialFactor + cableX * Math.sin(Math.acos(potencialFactor))) * circuitLenght / 100 / cableFase / (nominalTension / 10);
+    let result2 = Math.sqrt(3) * idim * (cableR * potencialFactor + cableX * Math.sin(Math.acos(potencialFactor))) * circuitLenght / 100 / cableFase / (nominalTension / 10);
+
+   
+    console.log('>>>>>: ', circuitType, nominalTension)
+    console.log('Result: ',result1.toFixed(2), result2.toFixed(2));
+
+
     dimensionCorrent.value = idim;
-    dropTensionE.value = result.toFixed(2);
     dropTensionE.style.fontWeight = "bold";
     dropTensionE.style.color = "rgb(255, 255, 255)";
-
-    if (result < dropTension) {
-        dropTensionE.style.backgroundColor = "rgb(41, 154, 45)";
-    } else {
-        dropTensionE.style.backgroundColor = "rgb(255, 1, 69)"; //red
+    
+    if (circuitType == 'Monofásico'){
+        dropTensionE.value = result1.toFixed(2);
+        console.log('Foi aqui no Mono')
+        if (result1 < dropTension) {
+            dropTensionE.style.backgroundColor = "rgb(41, 154, 45)";
+        } else {
+            dropTensionE.style.backgroundColor = "rgb(255, 1, 69)"; //red
+        }
+    }
+    if (circuitType == 'Trifásico'){
+        console.log('Foi aqui no Tri')
+        dropTensionE.value = result2.toFixed(2);
+        if (result2 < dropTension) {
+            dropTensionE.style.backgroundColor = "rgb(41, 154, 45)";
+        } else {
+            dropTensionE.style.backgroundColor = "rgb(255, 1, 69)"; //red
+        }
     }
 
 }
+
+/*
+function toggleLine() {
+    var linha = document.getElementById("nominalCorrent");
+    linha.classList.toggle("oculta");
+}
+
+
+function toggleObjeto() {
+    var objeto = document.getElementById("nominalCorrent");
+    if (objeto.style.display === "none") {
+      objeto.style.display = "block";
+    } else {
+      objeto.style.display = "none";
+    }
+  }
+  */
+
+
+  function toggleDiv() {
+    var div1 = document.getElementById("nominalCorrent");
+    var div2 = document.getElementById("powerCircuit");
+
+    if (div2.style.display === "none") {
+      div1.style.display = "none";
+      div2.style.display = "block";
+    } else {
+      div1.style.display = "block";
+      div2.style.display = "none";
+    }
+  }
